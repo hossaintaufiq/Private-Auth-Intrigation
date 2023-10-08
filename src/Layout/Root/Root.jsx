@@ -6,8 +6,16 @@ const Root = () => {
     return (
         <div>
 
+            <div className=' '>
             <Navbar></Navbar>
+
+            </div>
+
+            <div className=''> 
             <Outlet></Outlet>
+
+            </div>
+            
         </div>
     );
 };
