@@ -1,6 +1,30 @@
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 
 const Register = () => {
+
+
+    const {createUser}= useContext(AuthContext);
+    // console.log(authInfo); 
+
+    const handleRegister = e=> {
+        e.preventDefault();
+        const name=e.target.name.value;
+        const email = e.target.email.value; 
+        const password = e.target.password.value;
+        console.log(name, email, password);
+
+        createUser(email,password)
+        .then(result=>{
+            console.log(result.user)
+        })
+        .catch(error=> console.log(error.message))
+        
+
+
+    }
     return (
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content flex-col lg:flex-row-reverse">
@@ -9,7 +33,13 @@ const Register = () => {
                     <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                    <form className="card-body">
+                    <form className="card-body" onSubmit={handleRegister}>
+                    <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Name</span>
+                            </label>
+                            <input type="text" placeholder="your name.. " className="input input-bordered" required  name="name"/>
+                        </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
@@ -29,6 +59,7 @@ const Register = () => {
                             <button className="btn btn-primary">Register</button>
                         </div>
                     </form>
+                    <p className="text-center">Already Registered? Please<Link to={"/login"}><button className="btn btn-active btn-link">login</button></Link></p>
                 </div>
             </div>
         </div>
